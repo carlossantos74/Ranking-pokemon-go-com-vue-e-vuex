@@ -27,7 +27,9 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { createNamespacedHelpers, mapState } from 'vuex';
+
+const { mapGetters } = createNamespacedHelpers('ranking');
 
 export default {
   computed: {
@@ -52,8 +54,8 @@ export default {
     color: #666666;
 
     margin: 30px;
+    padding: 0px 0px 10px 0px;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.159);
-    border-top: 0.5px solid rgba(0, 0, 0, 0.159);
   }
 
   .list {
@@ -63,10 +65,10 @@ export default {
     }
 
     div {
-      width: 350px;
+      width: 320px;
       height: 70px;
 
-      margin: 10px 0px 10px 5px;
+      margin: 10px 0px 10px 30px;
 
       border-radius: 5px;
       border: 0.2px solid rgba(0, 0, 0, 0.159);

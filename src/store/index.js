@@ -1,9 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import ranking from './ranking.module';
+
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
+  modules: {
+    ranking,
+  },
+
   state: {
     users: [],
   },
@@ -15,19 +21,21 @@ export default new Vuex.Store({
         score: 0,
         id: Math.random(),
       });
-
       // eslint-disable-next-line
       return alert('Usuário Adicionado');
     },
     addPoints: (state, { id, value }) => {
-      const usuario = state.users.find(item => {
-        const igual = item.id === id;
-        return igual;
-      });
-
-      usuario.score += value;
+      if (id === null || value === 0) {
+        // eslint-disable-next-line
+        alert('Valor inválido');
+      } else {
+        const usuario = state.users.find(item => {
+          const igual = item.id === id;
+          return igual;
+        });
+        usuario.score += value;
+      }
     },
-
     cleanScore(state) {
       state.users.forEach(item => {
         // eslint-disable-next-line
@@ -36,17 +44,9 @@ export default new Vuex.Store({
     },
   },
   actions: {},
-  getters: {
-    calcRank(state) {
-      const rank = state.users.sort((usuarioA, usuarioB) => {
-        return usuarioB.score - usuarioA.score;
-      });
-
-      return rank;
-    },
-
-    top3(state, getters) {
-      return getters.calcRank.slice(0, 3);
-    },
-  },
+  getters: {},
 });
+
+window.store = store;
+
+export default store;
